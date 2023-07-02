@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% block bodystyle %}
+    <body style="background-image: url('{% static "images/back_shop.jpg" %}'); height: 100%; background-position: center; background-size: cover;background-repeat: no-repeat; background-attachment: fixed;">
+{% endblock %}
+<div class="m-5">
+  <form action="" method="post">
+    <div class="alert alert-warning text-center" role="alert" dir="rtl">
+      <h4 class="alert-heading">حذف موجودی</h4>
+      <hr />
+      <p>آیا از حذف "{{ inventoryproduct.product }}" مطمئنید؟</p>
+    </div>
+    <input type="submit" value="حذف" class="btn btn-danger btn-block" />
+  </form>
+</div>
+{% endblock content %}

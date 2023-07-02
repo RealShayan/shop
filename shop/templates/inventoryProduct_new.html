@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% load static %} {% block bodystyle %} <body
+style="background-image: url('{% static "images/back2.jpg" %}'); height: 100%;
+background-position: center; background-size: cover;background-repeat:
+no-repeat;"> {% endblock %} {% block addjs %}
+<script>
+    window.onload = function() {
+        var inputs = document.querySelectorAll("input");
+        inputs.forEach(function(input) {
+          input.classList.add("form-control");
+          input.classList.add("border");
+        });
+        var selects = document.querySelectorAll("select");
+        selects.forEach(function(select) {
+          select.classList.add("form-select");
+          select.classList.add("form-control");
+        });
+      };
+        
+</script>
+{% endblock %} {% block content %}
+<div class="container">
+  <div class="card text-right col-md-12">
+    <div class="card-body">
+      <h3 class="card-title mb-3">موجودی جدید</h3>
+      <form method="POST" action="">
+        {% csrf_token %} {{ form.as_p }}
+
+        <div class="form-group form-button">
+          <input
+            type="submit"
+            class="btn btn-success btn-block mt-3"
+            value="ثبت"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

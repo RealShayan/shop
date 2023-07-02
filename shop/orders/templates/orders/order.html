@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block bodystyle %}
+    <body style="background-image: url('{% static "images/back_shop.jpg" %}'); height: 100%; background-position: center; background-size: cover;background-repeat: no-repeat; background-attachment: fixed;">
+{% endblock %}
+{% block addjs %}
+<script>
+    function clicked() {
+    return confirm('آیا از سفارش خود اطمینان دارید ؟');
+}
+</script>
+{% endblock %}
+{% block content %}
+<div class="container">
+      <div class="card text-right col-md-12">
+        <img style="width: 250px; height: 350px; margin: auto" src="{{ inventory.product.image.url }}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{ inventory.product.name }}</h5>
+          <p class="card-text">قیمت هر {{ inventory.product.get_unit_display }} : {{ inventory.product.price_decimal }} تومان</p>
+          <p class="card-text">موجودی : {{ inventory.quantity }} {{ inventory.product.get_unit_display }}</p>
+        </div>
+        <div class="card-footer">
+          <form method="POST" action="">
+                {% csrf_token %}
+                {% for error in order_form.quantity_need.errors %}
+                    <span style="color: #bd4147">{{ error }}</span><br>
+                {% endfor %}
+                <div class="form-group">
+                    <label for="your_quantity"><i class="zmdi zmdi-card"></i></label>
+                    {{ order_form.quantity_need }}
+                </div>
+                <div class="form-group form-button">
+                    <input type="submit" onclick="return clicked();"  name="order_form" id="order_form" class="btn btn-success btn-block mt-3" value="ثبت سفارش">
+                </div>
+            </form>
+        </div>
+      </div>
+</div>
+
+{% endblock %}

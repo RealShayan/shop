@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block bodystyle %}
+    <body style="background-image: url('{% static "images/back_shop.jpg" %}'); height: 100%; background-position: center; background-size: cover;background-repeat: no-repeat; background-attachment: fixed;">
+{% endblock %}
+{% block content %}
+<section class="pt-4">
+
+<div class="container">
+    <div class="col-lg-12">
+        {% if not request.user.is_authenticated %}
+            <h2 style="text-align: center; color: white; border-style: dashed; padding-bottom: 10px;">لیست محصولات</h2>
+            {% for p in products %}
+            {% if forloop.counter0|divisibleby:3 %} <div class="card-group"> {% endif %}
+              <div class="card text-right col-lg-4" style=" margin:5px; margin-bottom: 10px;">
+                <img style="width: auto; height: 350px;" src="{{ p.image.url }}" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">{{ p.name }}</h5>
+                  <p class="card-text">قیمت هر {{ p.get_unit_display }} : {{ p.price_decimal }} تومان</p>
+                </div>
+                <div class="card-footer">
+                  <p class="text-center">برای سفارش محصولات وارد <a href="{% url 'user_login' %}">اکانت</a> خود شوید</p>
+                </div>
+              </div>
+            {% if forloop.counter|divisibleby:3 or forloop.last %} </div> {% endif %}
+            {% endfor %}
+        {% else %}
+            {% if products.count > 0 %}
+            <div class="alert alert-success text-center" role="alert">
+                  انبار شرکت ما در شهری که شما زندگی میکنید محصولات زیر را موجود دارد
+            </div>
+            {% else %}
+            <div class="alert alert-danger text-center" role="alert">
+              متاسفانه در شهری که شما ساکن هستید، محصولی در انبار های ما موجود نیست!
+            </div>
+            {% endif %}
+            {% for p in products %}
+            {% if forloop.counter0|divisibleby:3 %} <div class="card-group"> {% endif %}
+              <div class="card text-right col-lg-4" style=" margin:5px; margin-bottom: 10px;">
+                <img style="width: auto; height: 350px;" src="{{ p.product.image.url }}" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title ">{{ p.product.name }}</h5>
+                  <p class="card-text ">قیمت هر {{ p.product.get_unit_display }} : {{ p.product.price_decimal }} تومان</p>
+                  <p class="card-text ">موجودی  : {{ p.quantity }} {{ p.product.get_unit_display }}</p>
+                </div>
+                <div class="card-footer">
+                  <a href="{% url 'submit_order' p.id %}"><button type="button"  class="btn btn-primary btn-block mt-3 ">ثبت سفارش</button></a>
+                </div>
+              </div>
+            {% if forloop.counter|divisibleby:3 or forloop.last %} </div> {% endif %}
+            {% endfor %}
+
+        {% endif %}
+    </div>
+</div>
+</section>
+{% endblock %}

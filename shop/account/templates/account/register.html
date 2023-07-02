@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block bodystyle %}
+    <body style="background-image: url('{% static "images/back2.jpg" %}'); height: 100%; background-position: center; background-size: cover;background-repeat: no-repeat;">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="offset-md-12">
+            <div class="panel border bg-white">
+                <div class="panel-heading">
+                    <h3 class="pt-3 font-weight-bold">ثبت نام</h3>
+                </div>
+                <div class="panel-body p-3">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group py-2">
+                            <div class="input-field">
+                                {{ register_form.first_name }}
+                            </div>
+                        </div>
+
+                        <div class="form-group py-1 pb-2">
+                            <div class="input-field">
+                                {{ register_form.last_name }}
+                            </div>
+                        </div>
+
+                        <div class="form-group py-1 pb-2">
+                            {% for error in register_form.username.errors %}
+                                <span style="color: darkred">{{ error }}</span><br>
+                            {% endfor %}
+                            <div class="input-field">
+                                {{ register_form.username}}
+                            </div>
+                        </div>
+
+                        <div class="form-group py-1 pb-2">
+                            {% for error in register_form.email.errors %}
+                                <span style="color: darkred">{{ error }}</span><br>
+                            {% endfor %}
+                            <div class="input-field">
+                                {{ register_form.email}}
+                            </div>
+                        </div>
+
+                        <div class="form-group py-1 pb-2">
+                            <div class="input-field">
+                                {{ register_form.city}}
+                            </div>
+                        </div>
+
+                        <div class="form-group py-1 pb-2">
+                            <div class="input-field">
+                                {{ register_form.password}}
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block mt-3">ثبت نام</button>
+                        <div class="text-center pt-4 text-muted"> حساب کاربری دارید ؟
+                            <a href="{% url 'user_login' %}">وارد شوید</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

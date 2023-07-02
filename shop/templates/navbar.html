@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <li class="nav-item">
+              <a class="nav-link active Iransans-font" aria-current="page" href="/">صفحه اصلی</a>
+            </li>
+          {% if not request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link Iransans-font" aria-current="page" href="{% url 'user_login' %}">ورود</a>
+            </li>
+          {% else %}
+          <li class="nav-item">
+              <a class="nav-link Iransans-font" aria-current="page" href="{% url 'user_logout' %}">خروج</a>
+            </li>
+              <li class="nav-item">
+                  <a class="nav-link Iransans-font" href="{% url 'order_list' request.user.id %}">سفارشات</a>
+              </li>
+              {% if user.is_superuser %}
+              <li class="nav-item">
+                <a class="nav-link Iransans-font" href="{% url 'panel' %}">پنل ادمین</a>
+              </li>
+              {% endif %}
+          {% endif %}
+
+        <li class="nav-item">
+          <a class="nav-link disabled"></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

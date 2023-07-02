@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mytags %}
+{% load jalali_tags %}
+{% block bodystyle %}
+    <body style="background-image: url('{% static "images/back_shop.jpg" %}'); height: 100%; background-position: center; background-size: cover;background-repeat: no-repeat; background-attachment: fixed;">
+{% endblock %}
+{% block content %}
+<div class="container">
+<table class="table text-center">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">ردیف</th>
+      <th scope="col">کالا</th>
+      <th scope="col">مقدار سفارش</th>
+      <th scope="col">قیمت واحد</th>
+      <th scope="col">قیمت کل فاکتور</th>
+      <th scope="col">تاریخ ثبت</th>
+      <th scope="col">وضعیت سفارش</th>
+    </tr>
+  </thead>
+<tbody style="background-color: #ffffff">
+    {% for order in orders %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ order.product }}</td>
+            <td>{{ order.quantity }}</td>
+            <td>{% decimal_price order.price %}</td>
+            <td>{% multiply order.price order.quantity %}</td>
+            <td>{{ order.create|to_jalali:'%Y/%m/%d _ %H:%M:%S' }}</td>
+
+            {% if order.status == 'pending' %}
+                <td><button type="button" class="btn btn-secondary btn-sm">{{ order.get_status_display }}</button></td>
+            {% elif order.status == 'deliver' %}
+                <td><button type="button" class="btn btn-info btn-sm">{{ order.get_status_display }}</button></td>
+            {% elif order.status == 'Post' %}
+                <td><button type="button" class="btn btn-success btn-sm">{{ order.get_status_display }}</button></td>
+            {% else %}
+                <td><button type="button" class="btn btn-danger btn-sm">{{ order.get_status_display }}</button></td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+</div>
+
+{% endblock %}

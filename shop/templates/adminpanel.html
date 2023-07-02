@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block bodystyle %}
+    <body style="background-image: url('{% static "images/back_shop.jpg" %}'); height: 100%; background-position: center; background-size: cover;background-repeat: no-repeat; background-attachment: fixed;">
+{% endblock %}
+{% block content %}
+<body>
+<ul class="list-group list-group-light p-3">
+  <li class="list-group-item d-flex justify-content-between align-items-center m-2">
+    <div class="text-end">
+      <span class="h3">محصولات</span>
+    </div>
+    <a href="{% url 'product' %}" type="button" class="btn btn-primary">مشاهده</a>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center m-2">
+    <div class="text-end">
+      <span class="h3">انبار ها</span>
+    </div>
+    <a href="{% url 'inventory' %}" type="button" class="btn btn-primary">مشاهده</a>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center m-2">
+    <div class="text-end">
+      <span class="h3">موجودی انبار ها</span>
+    </div>
+    <a href="{% url 'inventoryProduct' %}" type="button" class="btn btn-primary">مشاهده</a>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center m-2">
+    <div class="text-end">
+      <span class="h3">شهر ها</span>
+    </div>
+    <a href="{% url 'city' %}" type="button" class="btn btn-primary">مشاهده</a>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center m-2">
+    <div class="text-end">
+      <span class="h3">سفارش ها</span>
+    </div>
+    <a href="{% url 'order' %}" type="button" class="btn btn-primary">مشاهده</a>
+  </li>
+</ul>
+</body>
+{% endblock content %}
