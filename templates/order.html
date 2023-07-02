@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load jalali_tags %}
+{% block bodystyle %}
+    <body style="background-image: url('{% static "images/back_shop.jpg" %}'); height: 100%; background-position: center; background-size: cover;background-repeat: no-repeat; background-attachment: fixed;">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+ 
+    
+    
+  
+    <table class="table text-center">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">کاربر</th>
+          <th scope="col">محصول</th>
+          <th scope="col">مقدار</th>
+          <th scope="col">انبار</th>
+          <th scope="col">قیمت</th>
+          <th scope="col">تاریخ</th>
+          <th scope="col">وضعیت</th>
+          <th scope="col">عملیات</th>
+        </tr>
+      </thead>
+    <tbody style="background-color: #ffffff">
+        {% for order in object_list %}
+            <tr>
+                <td>{{ order.user }}</td>
+                <td>{{ order.product }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>{{ order.inventory }}</td>
+                <td>{{ order.price }}</td>
+                <td>{{ order.create|to_jalali:'%Y/%m/%d _ %H:%M:%S' }}</td>
+                <td>{{ order.status }}</td>
+                <td><a class="btn btn-info text-white" href="{% url 'order_update' order.pk %}">به روز رسانی</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    </div>
+{% endblock content %}

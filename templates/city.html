@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block bodystyle %}
+    <body style="background-image: url('{% static "images/back_shop.jpg" %}'); height: 100%; background-position: center; background-size: cover;background-repeat: no-repeat; background-attachment: fixed;">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <a href="{% url 'city_new' %}" class="btn btn-success btn-block mb-3" type="button">افزودن</a>
+
+    <table class="table text-center">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">نام</th>
+          <th scope="col">عملیات</th>
+        </tr>
+      </thead>
+    <tbody style="background-color: #ffffff">
+        {% for city in object_list %}
+            <tr>
+                <td>{{ city.name }}</td>
+                <td><a class="btn btn-danger text-white" href="{% url 'city_delete' city.pk %}">حذف</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    </div>
+{% endblock content %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %} {% load static %} {% load jalali_tags %} {% block bodystyle %} <body
+style="background-image: url('{% static "images/back2.jpg" %}'); height: 100%;
+background-position: center; background-size: cover;background-repeat:
+no-repeat;"> {% endblock %} {% block addjs %}
+<script>
+    window.onload = function() {
+        var inputs = document.querySelectorAll("input");
+        inputs.forEach(function(input) {
+          input.classList.add("form-control");
+          input.classList.add("border");
+        });
+        var selects = document.querySelectorAll("select");
+        selects.forEach(function(select) {
+          select.classList.add("form-select");
+          select.classList.add("form-control");
+        });
+      };
+        
+</script>
+{% endblock %} {% block content %}
+<div class="container">
+  <div class="card text-right col-md-12">
+    <div class="card-body">
+      <h3 class="card-title mb-3">به روز رسانی سفارش</h3>
+      <table class="table text-center">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">کاربر</th>
+            <th scope="col">محصول</th>
+            <th scope="col">مقدار</th>
+            <th scope="col">انبار</th>
+            <th scope="col">قیمت</th>
+            <th scope="col">تاریخ</th>
+          </tr>
+        </thead>
+      <tbody style="background-color: #ffffff">
+              <tr>
+                  <td>{{ order.user }}</td>
+                  <td>{{ order.product }}</td>
+                  <td>{{ order.quantity }}</td>
+                  <td>{{ order.inventory }}</td>
+                  <td>{{ order.price }}</td>
+                  <td>{{ order.create|to_jalali:'%Y/%m/%d _ %H:%M:%S' }}</td>
+              </tr>
+      </tbody>
+      </table>
+      <form method="POST" action="">
+        {% csrf_token %} {{ form.as_p }}
+
+        <div class="form-group form-button">
+          <input
+            type="submit"
+            class="btn btn-success btn-block mt-3"
+            value="ثبت"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
